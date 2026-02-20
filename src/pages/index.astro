@@ -8,7 +8,7 @@ import skills from '../data/skills.json';
 const allProjects = await getCollection('projects', ({ data }) => !data.draft);
 const recentProjects = allProjects
   .sort((a, b) => b.data.date.getTime() - a.data.date.getTime())
-  .slice(0, 3);
+  .slice(0, 2);
 
 const allArticles = await getCollection('articles', ({ data }) => !data.draft);
 const recentArticles = allArticles
