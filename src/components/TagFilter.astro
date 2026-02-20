@@ -1,0 +1,63 @@
+---
+interface Props {
+  tags: string[];
+}
+
+const { tags } = Astro.props;
+const uniqueTags = [...new Set(tags)].sort();
+---
+
+<div class="tag-filter" id="tag-filter">
+  <button class="tag-filter-btn active" data-tag="all">all</button>
+  {uniqueTags.map((tag) => (
+    <button class="tag-filter-btn" data-tag={tag}>{tag}</button>
+  ))}
+</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const filter = document.getElementById('tag-filter');
+    if (!filter) return;
+
+    const buttons = filter.querySelectorAll<HTMLButtonElement>('.tag-filter-btn');
+    const cards = document.querySelectorAll<HTMLElement>('.card[data-tags]');
+
+    // Read initial tag from URL
+    const params = new URLSearchParams(window.location.search);
+    const initialTag = params.get('tag') || 'all';
+
+    function setActiveTag(tag: string) {
+      buttons.forEach((btn) => {
+        btn.classList.toggle('active', btn.dataset.tag === tag);
+      });
+
+      cards.forEach((card) => {
+        if (tag === 'all') {
+          card.style.display = '';
+        } else {
+          const cardTags = (card.dataset.tags || '').split(',');
+          card.style.display = cardTags.includes(tag) ? '' : 'none';
+        }
+      });
+
+      // Update URL without reload
+      const url = new URL(window.location.href);
+      if (tag === 'all') {
+        url.searchParams.delete('tag');
+      } else {
+        url.searchParams.set('tag', tag);
+      }
+      window.history.replaceState({}, '', url.toString());
+    }
+
+    // Set initial state
+    setActiveTag(initialTag);
+
+    // Attach click handlers
+    buttons.forEach((btn) => {
+      btn.addEventListener('click', () => {
+        setActiveTag(btn.dataset.tag || 'all');
+      });
+    });
+  });
+</script>

@@ -1,0 +1,23 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import SkillGroup from '../components/SkillGroup.astro';
+import skillsData from '../data/skills.json';
+
+const categories = Object.entries(skillsData) as [string, string[]][];
+---
+
+<BaseLayout
+  title="Skills"
+  description="Technical skills across backend engineering, distributed systems, databases, infrastructure, and system programming."
+>
+  <section class="page-header">
+    <h1 class="page-title">Skills</h1>
+    <p class="page-description">Technologies and domains I work with.</p>
+  </section>
+
+  <div class="skills-grid">
+    {categories.map(([category, skills]) => (
+      <SkillGroup category={category} skills={skills} />
+    ))}
+  </div>
+</BaseLayout>

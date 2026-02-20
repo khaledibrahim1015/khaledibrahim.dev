@@ -1,0 +1,67 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import ProjectCard from '../components/ProjectCard.astro';
+import ArticleCard from '../components/ArticleCard.astro';
+import { getCollection } from 'astro:content';
+
+const allProjects = await getCollection('projects', ({ data }) => !data.draft);
+const featuredProjects = allProjects
+  .filter((p) => p.data.featured)
+  .sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
+
+const allArticles = await getCollection('articles', ({ data }) => !data.draft);
+const recentArticles = allArticles
+  .sort((a, b) => b.data.date.getTime() - a.data.date.getTime())
+  .slice(0, 3);
+---
+
+<BaseLayout
+  title="Home"
+  description="Backend & Infrastructure Engineer. Building reliable distributed systems, high-performance APIs, and scalable cloud infrastructure."
+>
+  <section class="page-header">
+    <h1>Khaled Ibrahim</h1>
+    <p class="page-description">
+      Backend &amp; Infrastructure Engineer — building reliable distributed systems,
+      high-performance APIs, and scalable cloud infrastructure.
+    </p>
+  </section>
+
+  {featuredProjects.length > 0 && (
+    <section>
+      <h2>Featured Projects</h2>
+      <div class="card-list">
+        {featuredProjects.map((project) => (
+          <ProjectCard
+            title={project.data.title}
+            description={project.data.description}
+            date={project.data.date}
+            tags={project.data.tags}
+            slug={project.id}
+            featured={project.data.featured}
+          />
+        ))}
+      </div>
+    </section>
+  )}
+
+  {recentArticles.length > 0 && (
+    <section>
+      <h2>Recent Articles</h2>
+      <div class="card-list">
+        {recentArticles.map((article) => (
+          <ArticleCard
+            title={article.data.title}
+            description={article.data.description}
+            date={article.data.date}
+            tags={article.data.tags}
+            slug={article.id}
+          />
+        ))}
+      </div>
+      <p style="margin-top: var(--space-lg);">
+        <a href="/articles">View all articles →</a>
+      </p>
+    </section>
+  )}
+</BaseLayout>

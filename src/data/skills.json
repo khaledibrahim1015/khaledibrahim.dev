@@ -1,0 +1,59 @@
+{
+  "Backend Engineering": [
+    "C#",
+    ".NET Core",
+    "ASP.NET Web API",
+    "Node.js",
+    "Python",
+    "gRPC",
+    "REST API Design",
+    "Domain-Driven Design",
+    "CQRS",
+    "Event Sourcing"
+  ],
+  "Distributed Systems": [
+    "Microservices Architecture",
+    "Service Mesh",
+    "Circuit Breaker Pattern",
+    "Saga Pattern",
+    "Eventual Consistency",
+    "CAP Theorem",
+    "Distributed Tracing"
+  ],
+  "Messaging & Streaming": [
+    "Apache Kafka",
+    "RabbitMQ",
+    "Azure Service Bus",
+    "Redis Pub/Sub",
+    "Event-Driven Architecture"
+  ],
+  "Databases": [
+    "PostgreSQL",
+    "SQL Server",
+    "MongoDB",
+    "Redis",
+    "Elasticsearch",
+    "Entity Framework Core",
+    "Database Sharding",
+    "Replication"
+  ],
+  "Infrastructure & DevOps": [
+    "Docker",
+    "Kubernetes",
+    "Terraform",
+    "GitHub Actions",
+    "Azure DevOps",
+    "Nginx",
+    "Linux Administration",
+    "Prometheus",
+    "Grafana"
+  ],
+  "System Programming": [
+    "Memory Management",
+    "Concurrency Patterns",
+    "Lock-Free Data Structures",
+    "TCP/UDP Networking",
+    "Performance Profiling",
+    "Garbage Collection Tuning"
+  ]
+}

@@ -1,0 +1,35 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import ProjectCard from '../../components/ProjectCard.astro';
+import TagFilter from '../../components/TagFilter.astro';
+import { getCollection } from 'astro:content';
+
+const projects = await getCollection('projects', ({ data }) => !data.draft);
+const sorted = projects.sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
+const allTags = sorted.flatMap((p) => p.data.tags);
+---
+
+<BaseLayout
+  title="Projects"
+  description="Engineering projects — distributed systems, caching layers, event-driven pipelines, and infrastructure tooling."
+>
+  <section class="page-header">
+    <h1 class="page-title">Projects</h1>
+    <p class="page-description">Systems I've designed, built, and shipped.</p>
+  </section>
+
+  <TagFilter tags={allTags} />
+
+  <div class="card-list">
+    {sorted.map((project) => (
+      <ProjectCard
+        title={project.data.title}
+        description={project.data.description}
+        date={project.data.date}
+        tags={project.data.tags}
+        slug={project.id}
+        featured={project.data.featured}
+      />
+    ))}
+  </div>
+</BaseLayout>

@@ -1,0 +1,131 @@
+---
+interface Props {
+  title: string;
+  description: string;
+  canonicalURL?: string;
+  ogImage?: string;
+}
+
+const {
+  title,
+  description,
+  canonicalURL = Astro.url.href,
+  ogImage,
+} = Astro.props;
+
+const siteName = 'Khaled Ibrahim';
+const fullTitle = title === 'Home' ? siteName : `${title} — ${siteName}`;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="generator" content={Astro.generator} />
+
+    <!-- SEO -->
+    <title>{fullTitle}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonicalURL} />
+
+    <!-- OpenGraph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonicalURL} />
+    <meta property="og:title" content={fullTitle} />
+    <meta property="og:description" content={description} />
+    {ogImage && <meta property="og:image" content={ogImage} />}
+    <meta property="og:site_name" content={siteName} />
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={fullTitle} />
+    <meta name="twitter:description" content={description} />
+    {ogImage && <meta name="twitter:image" content={ogImage} />}
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Global Styles -->
+    <style is:global>
+      @import '../styles/global.css';
+    </style>
+
+    <!-- Theme: detect system preference + restore saved preference -->
+    <script is:inline>
+      (function () {
+        const saved = localStorage.getItem('theme');
+        const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        const theme = saved || (prefersDark ? 'dark' : 'light');
+        document.documentElement.setAttribute('data-theme', theme);
+      })();
+    </script>
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="container">
+        <a href="/" class="site-logo">&gt; khaled.ibrahim</a>
+        <nav>
+          <ul class="site-nav">
+            <li><a href="/projects">Projects</a></li>
+            <li><a href="/articles">Articles</a></li>
+            <li><a href="/skills">Skills</a></li>
+            <li><astro-theme-toggle /></li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+
+    <main class="container">
+      <slot />
+    </main>
+
+    <footer class="site-footer">
+      <div class="container">
+        <span>&copy; {new Date().getFullYear()} Khaled Ibrahim</span>
+        <ul class="footer-links">
+          <li><a href="https://github.com/khaledibrahim1015" target="_blank" rel="noopener">GitHub</a></li>
+          <li><a href="https://linkedin.com/in/khaledibrahim" target="_blank" rel="noopener">LinkedIn</a></li>
+          <li><a href="/rss.xml">RSS</a></li>
+        </ul>
+      </div>
+    </footer>
+
+    <!-- Theme toggle custom element -->
+    <script>
+      class ThemeToggle extends HTMLElement {
+        connectedCallback() {
+          const btn = document.createElement('button');
+          btn.className = 'theme-toggle';
+          btn.setAttribute('aria-label', 'Toggle theme');
+          this.updateIcon(btn);
+
+          btn.addEventListener('click', () => {
+            const current = document.documentElement.getAttribute('data-theme');
+            const next = current === 'dark' ? 'light' : 'dark';
+            document.documentElement.setAttribute('data-theme', next);
+            localStorage.setItem('theme', next);
+            this.updateIcon(btn);
+          });
+
+          this.appendChild(btn);
+        }
+
+        updateIcon(btn: HTMLButtonElement) {
+          const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+          btn.textContent = isDark ? '☀' : '☾';
+        }
+      }
+
+      customElements.define('astro-theme-toggle', ThemeToggle);
+    </script>
+  </body>
+</html>

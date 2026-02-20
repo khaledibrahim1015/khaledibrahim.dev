@@ -1,0 +1,47 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getCollection, render } from 'astro:content';
+
+export async function getStaticPaths() {
+  const projects = await getCollection('projects', ({ data }) => !data.draft);
+  return projects.map((project) => ({
+    params: { slug: project.id },
+    props: { project },
+  }));
+}
+
+const { project } = Astro.props;
+const { Content } = await render(project);
+
+const formattedDate = project.data.date.toLocaleDateString('en-US', {
+  year: 'numeric',
+  month: 'long',
+  day: 'numeric',
+});
+---
+
+<BaseLayout title={project.data.title} description={project.data.description}>
+  <article>
+    <header class="detail-header">
+      <h1 class="detail-title">{project.data.title}</h1>
+      <div class="detail-meta">
+        <time datetime={project.data.date.toISOString()}>{formattedDate}</time>
+        {project.data.featured && <span class="badge-featured">featured</span>}
+        <div class="tag-list">
+          {project.data.tags.map((tag: string) => <span class="tag">{tag}</span>)}
+        </div>
+      </div>
+      <div class="detail-meta" style="margin-top: var(--space-sm);">
+        <strong>Tech:</strong>
+        {project.data.tech.map((t: string) => <span class="tag">{t}</span>)}
+      </div>
+    </header>
+
+    <div class="detail-content">
+      <Content />
+    </div>
+  </article>
+
+  <hr />
+  <p><a href="/projects">← Back to projects</a></p>
+</BaseLayout>
