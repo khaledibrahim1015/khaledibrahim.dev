@@ -3,50 +3,91 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import ProjectCard from '../components/ProjectCard.astro';
 import ArticleCard from '../components/ArticleCard.astro';
 import { getCollection } from 'astro:content';
+import skills from '../data/skills.json';
 
 const allProjects = await getCollection('projects', ({ data }) => !data.draft);
-const featuredProjects = allProjects
-  .filter((p) => p.data.featured)
-  .sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
+const recentProjects = allProjects
+  .sort((a, b) => b.data.date.getTime() - a.data.date.getTime())
+  .slice(0, 3);
 
 const allArticles = await getCollection('articles', ({ data }) => !data.draft);
 const recentArticles = allArticles
   .sort((a, b) => b.data.date.getTime() - a.data.date.getTime())
   .slice(0, 3);
 
-
 const base = import.meta.env.BASE_URL;
+
+const resumeUrl = base && base.endsWith('/') ? `${base}resume.pdf` : `${base}/resume.pdf`;
+const photoUrl = base && base.endsWith('/') ? `${base}photo.jpeg` : `${base}/photo.jpeg`;
+
+const social = {
+  github: 'https://github.com/khaledibrahim1015',
+  linkedin: 'www.linkedin.com/in/khaled-ibrahim-ahmed/',
+  email: 'mailto:khaled.ibrahem.ahmed.ali@gmail.com',
+  resume: resumeUrl,
+};
 ---
 
 <BaseLayout
   title="Home"
   description="Backend & Infrastructure Engineer. Building reliable distributed systems, high-performance APIs, and scalable cloud infrastructure."
 >
-  <section class="page-header">
-    <h1>Khaled Ibrahim</h1>
-    <p class="page-description">
-      Backend &amp; Infrastructure Engineer — building reliable distributed systems,
-      high-performance APIs, and scalable cloud infrastructure.
-    </p>
+  <section class="hero">
+    <div class="hero-left">
+      <h1>Khaled Ibrahim</h1>
+      <p class="hero-title">Backend &amp; Infrastructure Engineer</p>
+      <p class="hero-summary">
+        Experienced backend engineer specializing in building resilient,
+        scalable services and cloud infrastructure. Focused on reliable APIs,
+        distributed systems, and automation to deliver production-grade platforms.
+      </p>
+
+      <div class="social-links">
+        <a href={social.github} rel="noopener" target="_blank">GitHub</a>
+        <a href={social.linkedin} rel="noopener" target="_blank">LinkedIn</a>
+        <a href={social.email}>Email</a>
+        <a href={social.resume} rel="noopener" target="_blank">Resume</a>
+      </div>
+    </div>
+
+    <div class="hero-right">
+      <img src={photoUrl} alt="Khaled Ibrahim" class="hero-photo" width="140" height="140" />
+    </div>
   </section>
 
-  {featuredProjects.length > 0 && (
+  {recentProjects.length > 0 && (
     <section>
-      <h2>Featured Projects</h2>
+      <h2>Recent Projects</h2>
       <div class="card-list">
-        {featuredProjects.map((project) => (
+        {recentProjects.map((project) => (
           <ProjectCard
             title={project.data.title}
             description={project.data.description}
             date={project.data.date}
             tags={project.data.tags}
             slug={project.id}
-            featured={project.data.featured}
           />
         ))}
       </div>
+      <p style="margin-top: var(--space-lg);">
+        <a href={`${base}/projects`}>View all projects →</a>
+      </p>
     </section>
   )}
+
+  <section>
+    <h2>Skills</h2>
+    <div class="skills-grid">
+      {Object.entries(skills).map(([category, items]) => (
+        <div class="skill-group">
+          <h3>{category}</h3>
+          <div class="skill-list">
+            {items.map((s) => <span class="skill-tag">{s}</span>)}
+          </div>
+        </div>
+      ))}
+    </div>
+  </section>
 
   {recentArticles.length > 0 && (
     <section>
