@@ -13,6 +13,9 @@ const allArticles = await getCollection('articles', ({ data }) => !data.draft);
 const recentArticles = allArticles
   .sort((a, b) => b.data.date.getTime() - a.data.date.getTime())
   .slice(0, 3);
+
+
+const base = import.meta.env.BASE_URL;
 ---
 
 <BaseLayout
@@ -60,7 +63,7 @@ const recentArticles = allArticles
         ))}
       </div>
       <p style="margin-top: var(--space-lg);">
-        <a href="/articles">View all articles →</a>
+        <a href={`${base}/articles`}>View all articles →</a>
       </p>
     </section>
   )}

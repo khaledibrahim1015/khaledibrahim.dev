@@ -13,6 +13,9 @@ const {
   ogImage,
 } = Astro.props;
 
+// 1. Get the base path
+const base = import.meta.env.BASE_URL;
+
 const siteName = 'Khaled Ibrahim';
 const fullTitle = title === 'Home' ? siteName : `${title} — ${siteName}`;
 ---
@@ -23,13 +26,12 @@ const fullTitle = title === 'Home' ? siteName : `${title} — ${siteName}`;
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="generator" content={Astro.generator} />
-
     <!-- SEO -->
     <title>{fullTitle}</title>
     <meta name="description" content={description} />
     <link rel="canonical" href={canonicalURL} />
 
-    <!-- OpenGraph -->
+   <!-- OpenGraph -->
     <meta property="og:type" content="website" />
     <meta property="og:url" content={canonicalURL} />
     <meta property="og:title" content={fullTitle} />
@@ -37,16 +39,15 @@ const fullTitle = title === 'Home' ? siteName : `${title} — ${siteName}`;
     {ogImage && <meta property="og:image" content={ogImage} />}
     <meta property="og:site_name" content={siteName} />
 
-    <!-- Twitter -->
-    <meta name="twitter:card" content="summary_large_image" />
+   <!-- Twitter -->
+     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={fullTitle} />
     <meta name="twitter:description" content={description} />
     {ogImage && <meta name="twitter:image" content={ogImage} />}
 
-    <!-- Favicon -->
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <!-- Favicon -->
+     <link rel="icon" type="image/svg+xml" href={`${base}/favicon.svg`} />
 
-    <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -54,12 +55,10 @@ const fullTitle = title === 'Home' ? siteName : `${title} — ${siteName}`;
       rel="stylesheet"
     />
 
-    <!-- Global Styles -->
     <style is:global>
       @import '../styles/global.css';
     </style>
 
-    <!-- Theme: detect system preference + restore saved preference -->
     <script is:inline>
       (function () {
         const saved = localStorage.getItem('theme');
@@ -72,12 +71,12 @@ const fullTitle = title === 'Home' ? siteName : `${title} — ${siteName}`;
   <body>
     <header class="site-header">
       <div class="container">
-        <a href="/" class="site-logo">&gt; khaled.ibrahim</a>
+        <a href={base} class="site-logo">&gt; khaled.ibrahim</a>
         <nav>
           <ul class="site-nav">
-            <li><a href="/projects">Projects</a></li>
-            <li><a href="/articles">Articles</a></li>
-            <li><a href="/skills">Skills</a></li>
+            <li><a href={`${base}/projects`}>Projects</a></li>
+            <li><a href={`${base}/articles`}>Articles</a></li>
+            <li><a href={`${base}/skills`}>Skills</a></li>
             <li><astro-theme-toggle /></li>
           </ul>
         </nav>
@@ -94,20 +93,18 @@ const fullTitle = title === 'Home' ? siteName : `${title} — ${siteName}`;
         <ul class="footer-links">
           <li><a href="https://github.com/khaledibrahim1015" target="_blank" rel="noopener">GitHub</a></li>
           <li><a href="https://linkedin.com/in/khaledibrahim" target="_blank" rel="noopener">LinkedIn</a></li>
-          <li><a href="/rss.xml">RSS</a></li>
+          <li><a href={`${base}/rss.xml`}>RSS</a></li>
         </ul>
       </div>
     </footer>
 
-    <!-- Theme toggle custom element -->
     <script>
-      class ThemeToggle extends HTMLElement {
+       class ThemeToggle extends HTMLElement {
         connectedCallback() {
           const btn = document.createElement('button');
           btn.className = 'theme-toggle';
           btn.setAttribute('aria-label', 'Toggle theme');
           this.updateIcon(btn);
-
           btn.addEventListener('click', () => {
             const current = document.documentElement.getAttribute('data-theme');
             const next = current === 'dark' ? 'light' : 'dark';
@@ -115,16 +112,13 @@ const fullTitle = title === 'Home' ? siteName : `${title} — ${siteName}`;
             localStorage.setItem('theme', next);
             this.updateIcon(btn);
           });
-
           this.appendChild(btn);
         }
-
         updateIcon(btn: HTMLButtonElement) {
           const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
           btn.textContent = isDark ? '☀' : '☾';
         }
       }
-
       customElements.define('astro-theme-toggle', ThemeToggle);
     </script>
   </body>

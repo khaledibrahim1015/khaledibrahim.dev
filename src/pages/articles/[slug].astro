@@ -13,6 +13,8 @@ export async function getStaticPaths() {
 const { article } = Astro.props;
 const { Content } = await render(article);
 
+const base = import.meta.env.BASE_URL;
+
 const formattedDate = article.data.date.toLocaleDateString('en-US', {
   year: 'numeric',
   month: 'long',
@@ -38,5 +40,5 @@ const formattedDate = article.data.date.toLocaleDateString('en-US', {
   </article>
 
   <hr />
-  <p><a href="/articles">← Back to articles</a></p>
+  <p><a href={`${base}/articles`}>← Back to articles</a></p>
 </BaseLayout>
