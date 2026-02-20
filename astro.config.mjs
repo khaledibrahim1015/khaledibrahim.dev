@@ -2,9 +2,9 @@
 import { defineConfig } from 'astro/config';
 import sitemap from '@astrojs/sitemap';
 
-// https://astro.build/config
 export default defineConfig({
-  site: 'https://khaledibrahim.dev',
+  site: 'https://khaledibrahim1015.github.io',
+  base: '/khaledibrahim.dev', // This is required because your repo is a project page
   integrations: [sitemap()],
   markdown: {
     shikiConfig: {
