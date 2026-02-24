@@ -6,7 +6,7 @@ tags: [dotnet, diagnostics, observability, efcore, opentelemetry, prometheus, as
 draft: false
 ---
 
-# Going Beyond Singleton, Scoped, and Transient — Part 3: Observing Your Pool with .NET Diagnostics
+### Going Beyond Singleton, Scoped, and Transient — Part 3: Observing Your Pool with .NET Diagnostics
 
 In [Part 1](/khaledibrahim.dev/articles/part-1-pooled-lifetime-di) we built a general-purpose pooled lifetime for .NET DI. In [Part 2](/khaledibrahim.dev/articles/part-2-efcore-pool-tracking) we explored EF Core's internal service provider and how to hook into the `DbContext` pool return lifecycle using `IResettableService` and `IDbContextOptionsExtension`.
 
