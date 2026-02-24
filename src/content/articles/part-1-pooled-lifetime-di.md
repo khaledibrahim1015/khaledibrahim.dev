@@ -1,7 +1,7 @@
 ---
 title: "Going Beyond Singleton, Scoped, and Transient — Part 1: Implementing a Pooled Lifetime in .NET DI (DbContextPool From Scratch)"
 description: "Explore the standard DI lifetimes in ASP.NET Core and implement a pooled lifetime inspired by EF Core's DbContext pooling — reducing allocations and improving performance."
-date: 2025-10-03
+date: 2026-01-03
 tags: [dotnet, dependency-injection, performance, aspnetcore]
 draft: false
 ---

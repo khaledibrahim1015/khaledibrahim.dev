@@ -1,7 +1,7 @@
 ---
 title: "Going Beyond Singleton, Scoped, and Transient — Part 2: Hooking into EF Core's DbContext Pool with IResettableService"
 description: "A deep dive into EF Core's internal service provider, how DbContext pooling works under the hood, and how to hook into the pool return lifecycle using IResettableService and IDbContextOptionsExtension."
-date: 2025-10-10
+date: 2026-01-10
 tags: [dotnet, efcore, dependency-injection, performance, aspnetcore ,"internal hooking"]
 draft: false
 ---
