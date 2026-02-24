@@ -1,5 +1,5 @@
 ---
-title: "Going Beyond Singleton, Scoped, and Transient — Part 3: Observing Your Pool with .NET Diagnostics"
+title: "Part 3: Observing Your Pool with .NET Diagnostics"
 description: "A practical guide to the .NET diagnostics ecosystem — DiagnosticListener, System.Diagnostics.Metrics, and EF Core Interceptors — and how to use them to monitor your pooled services in production."
 date: 2026-01-17
 tags: [dotnet, diagnostics, observability, efcore, opentelemetry, prometheus, aspnetcore]
