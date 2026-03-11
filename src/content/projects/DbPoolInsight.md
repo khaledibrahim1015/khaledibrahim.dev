@@ -7,7 +7,7 @@ tags: [".NET", "EF Core ", "System.Diagnostics.Metrics", "dbcontext", "dbcontext
 featured: true
 draft: false
 ---
-# EFCore.Observability — Core Library Reference & Integration Guide
+### EFCore.Observability — Core Library Reference & Integration Guide
 
 > **Version:** 1.0 · **Status:** Production Ready · **Target:** .NET 8+ / EF Core 8+  
 > **GitHub:** [DbPoolInsight](https://github.com/khaledibrahim1015/DbPoolInsight)
