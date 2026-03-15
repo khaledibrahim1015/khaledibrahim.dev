@@ -2,8 +2,8 @@
 title: "EFCore.Observability — Core Library Reference"
 description: "Zero-invasion observability for EF Core's DbContext pool. Tracks rents, returns, leaks, and utilization — with OpenTelemetry, Prometheus, and Grafana support built in."
 date: 2026-02-27
-tech: [".NET", "EF Core ", "C#", "ASP.NET Core", "OpenTelemetry", "Prometheus", "Grafana", "System.Diagnostics.Metrics", "SQL Server"]
-tags: [".NET", "EF Core ", "System.Diagnostics.Metrics", "dbcontext", "dbcontext-pool","observability", "opentelemetry", "prometheus", "grafana",  "diagnostics", "leak-detection", "pool-monitoring", "nuget", "library"]
+tech: [".NET", "EF Core", "C#", "ASP.NET Core", "OpenTelemetry", "Prometheus", "Grafana", "System.Diagnostics.Metrics", "SQL Server"]
+tags: [".NET", "EF Core", "System.Diagnostics.Metrics", "dbcontext", "dbcontext-pool","observability", "OpenTelemetry", "Prometheus", "Grafana",  "diagnostics", "leak-detection", "pool-monitoring", "nuget", "library"]
 featured: true
 draft: false
 ---
