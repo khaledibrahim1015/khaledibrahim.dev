@@ -32,11 +32,11 @@ Three non-invasive hooks (`DiagnosticListener` + `DbCommandInterceptor` + `IRese
 
 k6 hitting the API at 20 VUs — **100% return rate, 0 leaks, 16.7x reuse ratio**:
 
-![k6 Load Test + Grafana Dashboard](/public/docs/GrafanaDashBoard-k6-loadtest.png)
+![k6 Load Test + Grafana Dashboard](./docs/GrafanaDashBoard-k6-loadtest.png)
 
 Pooled + standard DbContext metrics side by side — **555 creations, 555 disposals, 0 active, 0 leaks**:
 
-![Grafana Standard DbContext Panel](/public/docs/GrafanaDashBoard-k6-loadtest-2.png)
+![Grafana Standard DbContext Panel](./docs/GrafanaDashBoard-k6-loadtest-2.png)
 
 ---
 
@@ -44,9 +44,9 @@ Pooled + standard DbContext metrics side by side — **555 creations, 555 dispos
 
 One script. Dev and prod overlays via Kustomize. Prometheus + Grafana via Helm. HPA on CPU + memory.
 
-![Kubernetes Deployment](/public/docs/apply-deployment-k8s-1.png)
+![Kubernetes Deployment](./docs/apply-deployment-k8s-1.png)
 
-![Kubernetes Cluster Running](/public/docs/apply-deployment-k8s-2.png)
+![Kubernetes Cluster Running](./docs/apply-deployment-k8s-2.png)
 
 ---
 
@@ -492,7 +492,7 @@ builder.Services.AddHostedService<PoolMonitorService>();
 
 The following screenshot shows a k6 load test running against the API alongside the live Grafana dashboard, confirming 100% return rate, 0 leaks, and a reuse ratio of 16.7x under 20 VUs:
 
-![k6 Load Test + Grafana Dashboard](/public/docs/GrafanaDashBoard-k6-loadtest.png)
+![k6 Load Test + Grafana Dashboard](./docs/GrafanaDashBoard-k6-loadtest.png)
 
 The companion API (`EFCore.Observability.API`) demonstrates the library against a real SQL Server database with endpoints that exercise different pool patterns.
 
@@ -1975,11 +1975,11 @@ efcore_standard_duration_avg_ms_milliseconds{db_context="ReplicaDbContext"}
 
 **Pooled DbContext panel** — captured during a k6 load test. Pool utilization at 43%, return rate 100%, reuse ratio 16.7x, zero leaks:
 
-![Grafana EFCore DbPoolInsight Dashboard](/public/docs/GrafanaDashBoard-k6-loadtest.png)
+![Grafana EFCore DbPoolInsight Dashboard](./docs/GrafanaDashBoard-k6-loadtest.png)
 
 **Standard (non-pooled) DbContext panel** — ReplicaDbContext showing 555 creations, 555 disposals, 0 active, 0 leaks:
 
-![Grafana Standard DbContext Panel](/public/docs/GrafanaDashBoard-k6-loadtest-2.png)
+![Grafana Standard DbContext Panel](./docs/GrafanaDashBoard-k6-loadtest-2.png)
 ---
 
 ## 24. Deployment Script
@@ -2152,9 +2152,9 @@ main "$@"
 
 The screenshots below show the full `./deploy.sh prod dbpoolinsight` run: Helm installs the monitoring stack, Kustomize applies the prod overlay, and pods come up across the `dbpoolinsight` namespace:
 
-![Kubernetes Deployment — Part 1](/public/docs/apply-deployment-k8s-1.png)
+![Kubernetes Deployment — Part 1](./docs/apply-deployment-k8s-1.png)
 
-![Kubernetes Deployment — Part 2](/public/docs/apply-deployment-k8s-2.png)
+![Kubernetes Deployment — Part 2](./docs/apply-deployment-k8s-2.png)
 
 
 
